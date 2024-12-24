@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+    container_name: ecommerce_django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+      - DOTENV_PATH=.env
+
+  db:
+    image: mysql:5.7
+    container_name: ecommerce_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"

@@ -1,0 +1,25 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run SAST with Bearer
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/Bearer/bearer/main/scripts/install.sh | sh
+          bearer scan .
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and Deploy
+        run: |
+          docker-compose down
+          docker-compose up --build -d
