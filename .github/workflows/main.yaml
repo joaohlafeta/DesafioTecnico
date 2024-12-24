@@ -9,16 +9,14 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run SAST with Bearer
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/Bearer/bearer/main/scripts/install.sh | sh
-          bearer scan .
+        uses: bearer/bearer-action@v2
 
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build and Deploy
         run: |
           docker-compose down
