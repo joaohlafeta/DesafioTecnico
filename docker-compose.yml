@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: .
-    container_name: ecommerce_django
+    container_name: malo_django
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
@@ -18,7 +18,7 @@ services:
 
   db:
     image: mysql:5.7
-    container_name: ecommerce_db
+    container_name: malo_db
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_NAME}
