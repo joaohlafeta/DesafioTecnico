@@ -37,9 +37,15 @@ jobs:
           source: ./docker-compose.remote.yml
           target: ~/docker-compose.remote.yml
 
-      - name: Authenticate Docker with GCP
-        run: |
-          gcloud auth configure-docker us-central1-docker.pkg.dev
+      - name: Authenticate Docker on VM
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_VM_SSH_KEY }}
+          port: 22
+          script: |
+            gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Deploy application on VM
         uses: appleboy/ssh-action@v0.1.10
