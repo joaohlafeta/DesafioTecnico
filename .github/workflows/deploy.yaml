@@ -36,7 +36,10 @@ jobs:
           port: 22
           source: ./docker-compose.remote.yml
           target: ~/docker-compose.remote.yml
-          debug: true
+
+      - name: Authenticate Docker with GCP
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Deploy application on VM
         uses: appleboy/ssh-action@v0.1.10
