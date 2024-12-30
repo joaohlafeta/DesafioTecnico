@@ -4,7 +4,8 @@ services:
   web:
     build:
       context: .
-    container_name: malo_django
+      dockerfile: Dockerfile.local
+    container_name: malo_django_local
     command: >
       sh -c "
       echo 'Esperando pelo banco de dados...' &&
@@ -21,17 +22,13 @@ services:
     depends_on:
       - db
     environment:
-      - DJANGO_SETTINGS_MODULE=config.settings
-      - DOTENV_PATH=/app/.env  
-    env_file:  
-      - .env
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     networks:
       - app_network
 
   db:
     image: mysql:8.0
-    container_name: malo_db
-    restart: always
+    container_name: malo_db_local
     ports:
       - "3306:3306"
     volumes:

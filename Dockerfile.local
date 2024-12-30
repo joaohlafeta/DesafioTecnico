@@ -21,5 +21,4 @@ COPY . .
 COPY espera.sh /espera.sh
 RUN chmod +x /espera.sh
 
-
 CMD ["/espera.sh", "db", "3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]

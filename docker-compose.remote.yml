@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.remote
+    container_name: malo_django_remote
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.remote
+    env_file:  
+      - .env
+    networks:
+      - app_network
+
+  db:
+    image: mysql:8.0
+    container_name: malo_db_remote
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:  
+      - .env
+    networks:
+      - app_network
+
+volumes:
+  db_data:
+
+networks:
+  app_network:
