@@ -27,6 +27,16 @@ jobs:
           docker build -f Dockerfile.remote -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
+      - name: Transfer docker-compose file to VM
+        uses: appleboy/scp-action@v0.1.10
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_VM_SSH_KEY }}
+          port: 22
+          source: ./docker-compose.remote.yml
+          target: /home/${{ secrets.GCP_VM_USER }}/docker-compose.remote.yml
+
       - name: Deploy to GCP VM via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -36,4 +46,5 @@ jobs:
           port: 22
           script: |
             docker pull us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
+            cd /home/${{ secrets.GCP_VM_USER }}
             docker-compose -f docker-compose.remote.yml up -d
