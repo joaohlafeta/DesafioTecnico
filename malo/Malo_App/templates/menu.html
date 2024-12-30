@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+        <br/>
+        <h1>Pratos</h1>
+        <br/>
+    </center>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="d-grid gap-2 d-md-block">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-6">
+                            <a href="{% url 'menu_category' %}" class="btn btn-secondary btn-block btn-xl">Categorias</a>
+                        </div>
+                            <a href="{% url 'add_dish' %}" class="btn btn-secondary btn-block btn-xl">Adicionar Prato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        <br/>
+
+        <div class="card-group">
+        <!-- Adiciona um elemento div com a classe "card-group" para agrupar os cards -->
+        
+            <div class="card" style="width: 18rem; display: inline-block;">
+
+     
+                <ul class="list-group list-group-flush">
+                    <table class="table">
+                        {% for dish in dishes %}
+                        <tr>
+                            <td align="left">
+                                <a href="{% url 'edit_dish' dish.id %}"  class="btn btn-xl "><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/pencil-square.svg" alt="lapis"></a>
+                            </td>
+                            <td align="center">
+                                {{ dish }}
+                            </td>
+                            <td align="right">
+                                <a href="{% url 'delete_dish' dish.id 'menu' %}" class="btn btn-xl"><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/trash.svg" alt="excluir">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br/>
+                </ul>
+            </div>
+    
+
+        </div>
+        <!-- Fecha o elemento div com a classe "card-group" -->
+
+{% endblock %}

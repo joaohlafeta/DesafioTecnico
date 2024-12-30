@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Estilos CSS para a tabela */
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 20px auto; /* Centralizar a tabela e adicionar espaço superior */
+        border-top: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid black; /* Linha preta entre as linhas */
+        border-right: 1px solid black; /* Linha preta entre as colunas */
+    }
+
+    th {
+        background-color: #f2f2f2;
+        border-top: 1px solid black; /* Linha preta na parte superior */
+        border-left: 1px solid black; /* Linha preta no lado esquerdo */
+    }
+
+    td {
+        border-left: 1px solid black; /* Linha preta no lado esquerdo */
+    }
+
+    .edit-button {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .delete-button {
+        color: red;
+        cursor: pointer;
+    }
+
+    .name-column {
+        display: flex;
+        align-items: center; /* Centralizar verticalmente o conteúdo */
+        justify-content: space-between; /* Espaçar o conteúdo */
+    }
+
+    .center-column {
+        text-align: center; /* Centralizar horizontalmente o conteúdo */
+    }
+
+    .btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+</style>
+
+<div style="text-align: center; margin-top: 20px;">
+    <h2>Funcionários</h2>
+</div>
+
+<table>
+    <tr>
+        <th class="center-column">Nome</th>
+        <th class="center-column">Cargo</th>
+        <th class="center-column">Salário</th>
+        <th class="center-column">Login</th>
+    </tr>
+    {% for garcom in garcoms %}
+    <tr>
+        <td class="name-column">
+            <a onclick="deleteGarcom({{ garcom.id }})" class="delete-button">X</a>
+            <span>{{ garcom.nome }}</span> 
+            <a href="{% url 'add_garcom' garcom_id=garcom.id %}" class="edit-button">&#9998;</a>
+        </td>
+        <td class="center-column">{{ garcom.cargo }}</td>
+        <td class="center-column">{{ garcom.salario }}</td>
+        <td class="center-column">{{ garcom.login }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'add_garcom' %}" class="add-garcom btn btn-secondary btn-block btn-xl">Adicionar Funcionário</a>
+
+<script>
+    function deleteGarcom(garcomId) {
+        fetch('/delete_garcom/' + garcomId, {
+            method: 'DELETE',
+        }).then(() => location.reload());
+    }
+</script>
+
+{% endblock %}

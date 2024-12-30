@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-20">
+            <div class="card" style="background-color: #CBCBCB;">
+                <center>
+                    <br/>
+                    <h1>Adicionar Funcionário</h1>
+                </center>
+                <form class="card-body" action="" method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do funcionário">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cargo" class="form-label">Cargo:</label>
+                        <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo do funcionário">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="salario" class="form-label">Salário:</label>
+                        <input type="number" class="form-control" id="salario" name="salario" placeholder="Salário do funcionário">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="login" class="form-label">Login:</label>
+                        <input type="text" class="form-control" id="login" name="login" placeholder="Login do funcionário">
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <input type="submit" value="Enviar" class="btn btn-secondary">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% endcomment %}
+
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-20">
+            <div class="card" style="background-color: #CBCBCB;">
+                <center>
+                    <br/>
+                    <h1>Adicionar Funcionário</h1>
+                </center>
+                <form class="card-body" action="" method="POST">
+                    {% csrf_token %}
+
+                    {{ form.nome.label_tag }}
+                    {{ form.nome }}
+
+                    {{ form.cargo.label_tag }}
+                    {{ form.cargo }}
+
+                    {{ form.salario.label_tag }}
+                    {{ form.salario }}
+
+                    {{ form.login.label_tag }}
+                    {{ form.login }}
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <input type="submit" value="Enviar" class="enviar-funcionario btn btn-secondary">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

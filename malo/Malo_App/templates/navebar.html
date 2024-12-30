@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cbcbcb;">
+  <div class="container-fluid">
+
+      <img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/Logo_com_Simbolo_Letra_M_Estilizada_e_Cores_Editaveis_.png" alt="Malo.Logo" width="72" height="72" style="position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);">
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarText">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: black;"><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/house-fill.svg" alt="Home"> Home</a>
+              </li>
+          </ul>
+          <span class="navbar-text text-center text-black flex-grow-1" style="margin-left: -19px;"> 
+          </br>Olá gerente!
+          </span>
+          <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="logout nav-link active" aria-current="page" href="{% url 'logout' %}" style="color: black;"><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/x-square.svg" alt=" Sair"> Sair</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</nav>

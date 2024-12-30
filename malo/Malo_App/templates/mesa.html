@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- remoção de mais de uma mesa -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="d-grid gap-2 d-md-block">
+        <div class="d-flex justify-content-between">
+          <div class="col-md-6">
+            <form method="POST" action="{% url 'delete_mult_mesa' %}">
+              {% csrf_token %}
+              <label for="qtd_mesas">Remover mesas:</label> 
+              <input type="number" id="rem_qtd_mesas" name="qtd_mesas" min="1" required>
+              <button type="submit" class="submit_rem_mesas btn btn-danger btn-block btn-xl" ><img src="/media/trash.svg" alt="Remover mesas">
+            </form>
+          </div>
+            <form method="POST" action="{% url 'add_mult_mesa' %}">
+              {% csrf_token %}
+              <label for="qtd_mesas">Adicionar mais de uma mesa:</label>
+              <input type="number" id="add_qtd_mesas" name="qtd_mesas" min="1" required>
+              <button type="submit" class="submit_add_mesas btn btn-primary btn-block btn-xl" ><img src="/media/plus-square.svg" alt="Adicionar mesas">
+            </form>
+        </div>
+      </div>
+      <br/>
+      <div class="d-grid gap-2 d-md-block">
+        <a href="{% url 'delete_mesa'%}" id="rem_mesa" class="btn btn-danger btn-block btn-xl" >Remover 1 Mesa</a>
+      </div>  
+    </div>
+  </div>
+  
+  
+
+
+  <center>
+    <!-- botao de remover mesas -->
+
+    <div class="container text-center">
+      <div class="row ">
+        {% for mesa in mesa_list %}
+        <div class="col-md-3 mt-3">
+          <div class="d-flex justify-content-center align-items-center" style="height:20vh;border:2px solid #000">
+            {{ mesa }}
+              <div>
+              <div>
+                <a href="{% url 'mesa_orders' mesa_numero=mesa.numero %}" name="{{ mesa }}">Ver detalhes</a>
+              </div>
+            </div>
+          
+          </div>
+          
+        </div>
+        {% endfor %}
+
+        <div class="col-md-3 mt-3">
+          <div class="d-flex justify-content-center align-items-center" style="height:20vh;border:2px solid #000">
+            <form id="add-mesa-form" action="{% url 'add_mesa' %}" method="post">
+              {% csrf_token %}
+              <button type="button" class="add_mesa" onclick="document.getElementById('add-mesa-form').submit();" style="border:none; background-color:#FFF">
+                <i style="font-size: 32px" class="bi bi-plus-circle"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+
+
+    
+  
+{% endblock %}

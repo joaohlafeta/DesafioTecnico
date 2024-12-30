@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h1>Pedidos da Mesa {{ mesa.numero }}</h1>
+<h5>Preço Total Global: R$ {{ total_price_global }}</h5>
+
+  <div class="col-md-3 mt-3">
+    <form action="{% url 'add_order' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="mesa_numero" value="{{ mesa.numero }}">
+      <button type="submit" class="Fazer-pedido btn btn-secondary btn-block btn-xl">Fazer um novo pedido</button>
+    </form>   
+  </div>
+
+<ul>
+  {% for order in orders %}
+  <li>{{ order }}</li>
+  <ul>
+    {% for order_dish in order.orderdish_set.all %}
+    <li>{{ order_dish.dish.name }}</li>
+    <li>Quantidade: {{ order_dish.quantity }}</li>
+    <li>Observação: {{ order_dish.obs }}</li>
+    <li>Preço: R$ {{ order_dish.dish.price }}</li>
+    <br>
+    {% endfor %}
+    <li>Preço local: {{ order.total_price_local }}</li> 
+  </ul>
+  <br>
+  {% endfor %}
+</ul>
+<div>
+  <a href="{% url 'close_orders' mesa.numero %}" name="Fechar-conta" class="btn btn-secondary btn-block btn-xl">Fechar Conta</a>
+</div>
+
+{% endblock %}

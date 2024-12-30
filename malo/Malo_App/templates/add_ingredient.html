@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-20">
+            <div class="card" style="background-color: #CBCBCB;">
+                <center>
+                    <br/>
+                    <h1>Adicionar Ingrediente</h1>
+                </center>
+                    {% if submitted %}
+
+
+                    {% else %}
+                        <form class="card-body" action="" method=POST >
+                            {% csrf_token %}
+
+                            {{ form.as_p }}
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="Enviar" class="submit btn btn-secondary">
+                            </div>
+
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

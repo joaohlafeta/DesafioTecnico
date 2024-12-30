@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+      <br/>
+
+        <h1>Estoque</h1>
+        <br/>
+
+        <div class="d-grid gap-2 d-md-flex">
+          <a href="{% url 'add_ingredient'%}" class="btn btn-secondary btn-block btn-xl">Adicionar Ingrediente</a>
+        </div>
+        <br/>
+
+        <ul class="list-group list-group-flush">
+          <table class="table table-bordered table-strip border-0">
+            <tr>
+              <td align="center">Ingrediente</td>
+              <td align="center">Data de Validade</td>
+              <td align="center">Quantidade</td>
+              <td align="center">Valor de Compra</td>
+              <td align="center">Observação</td>
+            </tr>
+
+            {% for ingredient in ingredient_list %}
+              <tr>
+                  <td>
+                    <table class="table">
+                      <tr>
+                        <td align="left">
+                          <a href="{% url 'edit_ingredient' ingredient.id %}" class="btn btn-xl "><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/pencil-square.svg" alt="lapis" width="20" height="20">                        
+                        </td>
+                        <td align="center">
+                          {{ ingredient }}
+                        </td>
+                        <td align="right">
+                          <a href="{% url 'delete_ingredient' ingredient.id %}" class="btn btn-xl"><img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/trash.svg" alt="excluir" width="20" height="20">
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="center">{{ ingredient.exp_date }}</td>
+                  <td align="center">{{ ingredient.quantity|floatformat:3 }} {{ ingredient.measure_unit }}</td>
+                  <td align="center">R$ {{ ingredient.price|floatformat:2 }}</td>
+                  <td align="center">{{ ingredient.obs }}</td>
+              </tr>
+              {% endfor %}
+          </table>
+        </ul>
+
+    </center>
+{% endblock %}

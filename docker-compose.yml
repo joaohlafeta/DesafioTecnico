@@ -5,23 +5,44 @@ services:
     build:
       context: .
     container_name: malo_django
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+      echo 'Esperando pelo banco de dados...' &&
+      /espera.sh db 3306 &&
+      echo 'Banco de dados disponível, iniciando Django...' &&
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - ./malo:/app
+      - ./.env:/app/.env  
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings
-      - DOTENV_PATH=.env
+      - DOTENV_PATH=/app/.env  
+    env_file:  
+      - .env
+    networks:
+      - app_network
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: malo_db
     restart: always
-    environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:  
+      - .env
+    networks:
+      - app_network
+
+volumes:
+  db_data:
+
+networks:
+  app_network:

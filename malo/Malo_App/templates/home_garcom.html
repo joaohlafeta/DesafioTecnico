@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <center>
+    <br/>
+    <h1>Mesas</h1>
+
+    <div class="container text-center">
+      <div class="row ">
+        {% for mesa in mesa_list %}
+        <div class="col-md-3 mt-3">
+          <div class="d-flex justify-content-center align-items-center" style="height:20vh;border:2px solid #000">
+            {{ mesa }}
+              <div>
+              <div>
+                <a href="{% url 'mesa_orders' mesa_numero=mesa.numero %}" name="{{ mesa }}">Ver detalhes</a>
+              </div>
+            </div>
+          
+          </div>
+          
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </center>
+
+
+    
+  
+{% endblock %}

@@ -1,0 +1,32 @@
+/* DASHBOARD */
+<<<<<<< HEAD
+.dashboard td, .dashboard th {
+    word-break: break-word;
+}
+=======
+>>>>>>> 84708b22f826d25259fa524313d8417ffbf158c3
+
+.dashboard .module table th {
+    width: 100%;
+}
+
+.dashboard .module table td {
+    white-space: nowrap;
+}
+
+.dashboard .module table td a {
+    display: block;
+    padding-right: .6em;
+}
+
+/* RECENT ACTIONS MODULE */
+
+.module ul.actionlist {
+    margin-left: 0;
+}
+
+ul.actionlist li {
+    list-style-type: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .btn-xl {
+      width: 350px;
+    }
+    .imagem-centralizada {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px; /* ajuste a margem superior */
+      margin-bottom: 10px; /* ajuste a margem inferior */
+    }
+  </style>
+ 
+ <br/><br/><br/>
+ <h1 class="text-center" style="font-family:Candara" ><b>Bem-vindo ao</b></h1>
+
+ <div class="imagem-centralizada">
+   <img src="https://raw.githubusercontent.com/flavio-muniz/MALO---fds-2023.1/main/media/Logo_com_Simbolo_Letra_M_Estilizada_e_Cores_Editaveis_.png" alt="Malo.Logo" width="240" height="240">
+  </div>
+  
+  <div class="container my-6">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card-body text-center">
+          <div class="d-flex flex-column align-items-center">
+            <a href="{% url 'mesa' %}" class="mesa btn btn-secondary btn-xl mb-3">Mesas</a>
+            <a href="{% url 'menu_category' %}" class="menu_category btn btn-secondary btn-xl mb-3">Cardápio</a>
+            <a href="{% url 'ingredient_list' %}" class="ingredient_list btn btn-secondary btn-xl mb-3">Estoque</a>
+            <a href="{% url 'garcom_list' %}" class="garcom_list btn btn-secondary btn-xl mb-3">Funcionarios</a>
+            <a href="{% url 'invoice_list' %}" class="invoice_list btn btn-secondary btn-xl mb-3">Faturamento</a>
+          </div>
+        </div>     
+      </div>
+    </div>
+  </div>
+  <br/><br/><br/>
+{% endblock %}

@@ -11,10 +11,7 @@ db.sqlite3
 # Environment Variables
 .env
 
-# Docker
-*.pid
-*.log
-docker-compose.override.yml
+
 
 # Byte-compiled files
 *.swp

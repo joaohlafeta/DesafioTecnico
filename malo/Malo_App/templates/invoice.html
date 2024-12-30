@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+<br/>
+<h1>Faturamento</h1>
+<br/>
+<div class="card border-secondary mb-3" style="width: 40rem;">
+    <div class="card-header border-secondary mb-3">
+        <br/>
+        {% if lucro > 0 %}
+        <h2 class="text-success">Lucro: R$ {{ lucro|floatformat:2 }}</h2>
+        {% else %}
+        <h2 class="text-danger">Lucro: R$ {{ lucro|floatformat:2 }}</h2>
+        {% endif %}
+        <br/>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item border-secondary mb-3">
+            <br/>
+                <h5>(+) Faturamento: R$ {{ invoice.billing|floatformat:2 }}</h5>
+            <br/>
+        </li>
+        <li class="list-group-item border-secondary mb-3">
+            <br/>
+                <h5>(-) Serviços: R$ {{ invoice.tips|floatformat:2 }}</h5>
+            <br/>
+        </li>
+        <li class="list-group-item border-secondary mb-3">
+            <br/>
+                <h5>(-) Salários Funcionarios: R$ {{ invoice.exp_employees|floatformat:2 }}</h5>
+            <br/>
+        </li>
+        <li class="list-group-item border-secondary mb-3">
+            <br/>
+                <h5>(-) Insumos: R$ {{ invoice.feedstock|floatformat:2 }}</h5>
+            <br/>
+        </li>
+    </ul>
+  </div>
+<br/>
+</center>
+
+{% endblock %}

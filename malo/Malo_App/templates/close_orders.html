@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h1>Pedidos da Mesa {{ mesa.numero }}</h1>
+
+<ul>
+    {% for order in orders %}
+    <li>{{ order }}</li>
+    <ul>
+        {% for order_dish in order.orderdish_set.all %}
+        <li>{{ order_dish.dish.name }}</li>
+        <li>Quantidade: {{ order_dish.quantity }}</li>
+        <li>Observação: {{ order_dish.obs }}</li>
+        <li>Preço: R$ {{ order_dish.dish.price }}</li>
+        <br>
+        {% endfor %}
+        <li>Preço local: {{ order.total_price_local }}</li> 
+    </ul>
+    <br>
+    {% endfor %}
+</ul>
+<h5>Subtotal: R$ {{ subtotal|floatformat:2 }}</h5>
+<h5>Serviços: R$ {{ services|floatformat:2 }}</h5>
+<h5>Total: R$ {{ total|floatformat:2 }}</h5>
+
+<div class="col-md-3 mt-3">
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="close-order btn btn-secondary btn-block btn-xl">Fechar</button>
+    </form>   
+</div>
+
+{% endblock %}
