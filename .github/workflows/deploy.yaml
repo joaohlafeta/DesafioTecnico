@@ -27,26 +27,17 @@ jobs:
           docker build -f Dockerfile.remote -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
-      - name: Copy Dockerfile.remote to VM
+      - name: Copy all files to VM
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
-          source: ./Dockerfile.remote
-          target: ~/django-app
+          source: ./
+          target: ~/django-app/
 
-      - name: Copy docker-compose file to VM
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_VM_SSH_KEY }}
-          port: 22
-          source: ./docker-compose.remote.yml
-          target: ~/django-app
-
+      
       - name: Authenticate Docker on VM
         uses: appleboy/ssh-action@v0.1.10
         with:
