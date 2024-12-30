@@ -36,7 +36,6 @@ jobs:
           port: 22
           source: ./docker-compose.remote.yml
           target: ~/docker-compose.remote.yml
-          debug: true
 
       - name: Deploy application on VM
         uses: appleboy/ssh-action@v0.1.10
