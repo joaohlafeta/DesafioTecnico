@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -f Dockerfile.remote -t LOCATION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app:latest .
-          docker push LOCATION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app:latest
+          docker build -f Dockerfile.remote -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
       - name: Deploy to GCP VM via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -35,5 +35,5 @@ jobs:
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
           script: |
-            docker pull LOCATION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app:latest
+            docker pull us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
             docker-compose -f docker-compose.remote.yml up -d
