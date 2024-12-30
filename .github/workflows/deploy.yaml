@@ -28,7 +28,7 @@ jobs:
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
       - name: Transfer docker-compose file to VM
-        uses: appleboy/scp-action@v0.1.10
+        uses: appleboy/scp-action@v0.1.2
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
