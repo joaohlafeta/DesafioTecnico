@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
           source: ./docker-compose.remote.yml
-          target: ~/docker-compose.remote.yml
+          target: ~/docker-compose.remote.yml/docker-compose.remote.yml
 
       - name: Authenticate Docker on VM
         uses: appleboy/ssh-action@v0.1.10
@@ -56,4 +56,4 @@ jobs:
           port: 22
           script: |
             docker pull us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
-            docker-compose -f ~/docker-compose.remote.yml up -d
+            docker-compose -f ~/docker-compose.remote.yml/docker-compose.remote.yml up -d
