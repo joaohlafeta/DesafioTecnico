@@ -24,20 +24,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          echo "Building Docker image..."
           docker build -f Dockerfile.remote -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
-          echo "Pushing Docker image..."
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
-      - name: Debug Environment Variables
-        run: |
-          echo "GCP_VM_IP: ${{ secrets.GCP_VM_IP }}"
-          echo "GCP_VM_USER: ${{ secrets.GCP_VM_USER }}"
-          echo "Testing SSH key length:"
-          echo "${{ secrets.GCP_VM_SSH_KEY }}" | wc -c
-
       - name: Copy docker-compose file to VM
-        uses: appleboy/scp-action@v0.1.2
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
@@ -47,17 +38,6 @@ jobs:
           target: ~/docker-compose.remote.yml
           debug: true
 
-      - name: Test SSH connection
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.GCP_VM_IP }}
-          username: ${{ secrets.GCP_VM_USER }}
-          key: ${{ secrets.GCP_VM_SSH_KEY }}
-          port: 22
-          script: |
-            echo "Testing SSH connection..."
-            ls -la ~/
-
       - name: Deploy application on VM
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -66,7 +46,5 @@ jobs:
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
           script: |
-            echo "Pulling Docker image on the VM..."
             docker pull us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
-            echo "Running docker-compose to start services..."
             docker-compose -f ~/docker-compose.remote.yml up -d
