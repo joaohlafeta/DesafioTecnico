@@ -24,17 +24,17 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -f Dockerfile.remote -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
+          docker build -f Dockerfile.local -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
 
-      - name: Copy Dockerfile.remote to VM
+      - name: Copy Dockerfile.local to VM
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
-          source: ./Dockerfile.remote
+          source: ./Dockerfile.local
           target: ~/django-app
 
       - name: Copy docker-compose file to VM
@@ -44,7 +44,7 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           port: 22
-          source: ./docker-compose.remote.yml
+          source: ./docker-compose.local.yml
           target: ~/django-app
 
       - name: Copy app file to VM
@@ -77,4 +77,4 @@ jobs:
           port: 22
           script: |
             docker pull us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-app/django-app:latest
-            docker-compose -f ~/django-app/docker-compose.remote.yml up -d
+            docker-compose -f ~/django-app/docker-compose.local.yml up -d
