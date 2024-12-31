@@ -30,7 +30,7 @@ Bem-vindo ao **MALO**, uma aplicação desenvolvida em Django e MySQL para gest�
 
 A aplicação está configurada para realizar o deploy na **Google Cloud Platform**. Após o deploy, ela pode ser acessada via HTTP no endereço IP:
 
-**http://34.59.212.245**
+**http://34.59.212.245:8000**
 
 ## Rodando a Aplicação Localmente
 
